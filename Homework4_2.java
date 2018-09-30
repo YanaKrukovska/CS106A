@@ -4,18 +4,40 @@ public class Homework4_2 extends SuperKarel {
 
     public void run() {
         if (frontIsBlocked()) {
+            //Special case One cell world
             putBeeper();
-
         } else {
-            fillFirstRow();
+            // fill the firs row in
+            putBeeper();
+            markWestBorderOfRowAbove();
             while (frontIsClear()) {
-                goToStart();
-                markWestBorder();
-                fillNextRow();
-
+                if (noBeepersPresent()) {
+                    putBeeper();
+                }
+                move();
+            }
+            putBeeper();
+            if (leftIsClear()) {
                 turnAround();
                 if (rightIsClear()) {
+                    move();
+                    turnRight();
+                    move();
+                    if (beepersPresent()) {
+                        return;
+                    }
+                    putBeeper();
+                    turnLeft();
+                }
+            } // end of fill the firs row in
 
+            while (frontIsClear()) {
+                goToStart();
+                markWestBorderOfRowAbove();
+                fillRow();
+                turnAround();
+                if (rightIsClear()) { //it means above
+                    //There is one more row. Mark the east border
                     move();
                     turnRight();
                     move();
@@ -28,68 +50,45 @@ public class Homework4_2 extends SuperKarel {
                         move();
                     }
                 } else {
+                    //There are not more rows to fill in. Just fill the current and stop working
                     goToStart();
-                    fillNextRow();
+                    fillRow();
                     break;
                 }
-
-                markEastBorder();
+                turnAround();
+                if (rightIsClear()) {
+                    move();
+                    turnRight();
+                    move();
+                    if (beepersPresent()) {
+                        break;
+                    }
+                    putBeeper();
+                    turnLeft();
+                }
             }
         }
     }
 
-    private void fillNextRow() {
+    private void fillRow() {
         if (beepersPresent()) {
             move();
         }
         while (noBeepersPresent()) {
             putBeeper();
             move();
-
         }
-
     }
 
     private void goToStart() {
-
         do {
             move();
-
         } while (noBeepersPresent());
         turnAround();
 
     }
 
-    private void fillFirstRow() {
-
-        putBeeper();
-        markWestBorder();
-        while (frontIsClear()) {
-            if (noBeepersPresent()) {
-                putBeeper();
-            }
-            move();
-        }
-        putBeeper();
-        if (leftIsClear()) {
-            markEastBorder();
-        }
-
-    }
-
-    private void markEastBorder() {
-
-        turnAround();
-        if (rightIsClear()) {
-            move();
-            turnRight();
-            move();
-            putBeeper();
-            turnLeft();
-        }
-    }
-
-    private void markWestBorder() {
+    private void markWestBorderOfRowAbove() {
         if (frontIsClear() && leftIsClear()) {
             move();
             turnLeft();
@@ -100,5 +99,4 @@ public class Homework4_2 extends SuperKarel {
             turnLeft();
         }
     }
-
 }
