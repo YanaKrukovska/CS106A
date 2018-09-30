@@ -4,7 +4,6 @@ public class Homework4_2 extends SuperKarel {
 
 	public void run() {
 		if (frontIsBlocked()) {
-			System.out.println("single");
 			putBeeper();
 		} else {
 			fillFirstRow();
@@ -15,7 +14,6 @@ public class Homework4_2 extends SuperKarel {
 
 				turnAround();
 				if (rightIsClear()) {
-					System.out.println("rightIsClear");
 
 					move();
 					turnRight();
@@ -29,7 +27,6 @@ public class Homework4_2 extends SuperKarel {
 						move();
 					}
 				} else {
-					System.out.println("rightIsNotClear");
 					goToStart();
 					fillNextRow();
 					break;
@@ -41,8 +38,7 @@ public class Homework4_2 extends SuperKarel {
 	}
 
 	private void fillNextRow() {
-		System.out.println("fillNextRow");
-		if(beepersPresent()) {
+		if (beepersPresent()) {
 			move();
 		}
 		while (noBeepersPresent()) {
@@ -52,43 +48,36 @@ public class Homework4_2 extends SuperKarel {
 		}
 
 	}
-	
-
 
 	private void goToStart() {
-		System.out.println("goToStart");
-		printOrientation();
-		System.out.println("-----");
-		do { move(); 
-		System.out.println("*");
 
-		}
-		while (noBeepersPresent());
+		do {
+			move();
+
+		} while (noBeepersPresent());
 		turnAround();
-		printOrientation();
-		System.out.println("goToStartEnd");
 
 	}
 
 	private void fillFirstRow() {
-		System.out.println("fillFirstRow");
-		printOrientation();
-		putBeeper(); 
+
+		putBeeper();
 		markWestBorder();
 		while (frontIsClear()) {
-			if(noBeepersPresent()){
-					putBeeper(); }
+			if (noBeepersPresent()) {
+				putBeeper();
+			}
 			move();
 		}
 		putBeeper();
-		if(leftIsClear()) {
-		markEastBorder();
+		if (leftIsClear()) {
+			markEastBorder();
 		}
-		printOrientation();
+
 	}
 
 	private void markEastBorder() {
-		System.out.println("markEastBorder");
+
 		turnAround();
 		if (rightIsClear()) {
 			move();
@@ -101,7 +90,6 @@ public class Homework4_2 extends SuperKarel {
 
 	private void markWestBorder() {
 		if (frontIsClear() && leftIsClear()) {
-			System.out.println("markWestBorder");
 			move();
 			turnLeft();
 			move();
@@ -111,16 +99,5 @@ public class Homework4_2 extends SuperKarel {
 			turnLeft();
 		}
 	}
-	
-	private void printOrientation() {
-		if(facingNorth()) {
-			System.out.println("North");
-		} else if (facingSouth()) {
-			System.out.println("South");
-		}else if (facingEast()) {
-			System.out.println("East");
-	} else {
-			System.out.println("west");
-	} }
 
 }
